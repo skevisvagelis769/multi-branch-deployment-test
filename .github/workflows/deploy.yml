@@ -16,5 +16,19 @@ jobs:
               run: |
                 cp ./test.main /home/${{secrets.USERNAME}} 
                 echo did the thing
+    deploy-testmgr:
+        if: github.ref == 'refs/heads/testmgr'
+        runs-on:
+            self-hosted
+        steps:
+            - name: Checkout files
+              uses: actions/checkout@v4
+            - name: Send files to server
+              run: |
+                mkdir -p ~/.ssh
+                echo ${{secrets.SSH_MGR}} > ~/.ssh/mgr-ssh && chmod 600 ~/.ssh.mgr-ssh
+
+                scp -o StrictHostChecking=no -i ~/.ssh/mgr-ssh -r ./* ${{secrets.USERNAME}}@${{secrets.MGRIP}}:/home/${{secrets.USERNAME}}/multi-branch-test
+                echo did the thing
 
 
