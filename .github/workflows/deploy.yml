@@ -28,7 +28,7 @@ jobs:
                 mkdir -p ~/.ssh
                 echo "${{secrets.SSH_MGR}}" > ~/.ssh/mgr-ssh && chmod 600 ~/.ssh/mgr-ssh
 
-                scp -o StrictHostChecking=no -i ~/.ssh/mgr-ssh -r ./* ${{secrets.USERNAME}}@${{secrets.MGRIP}}:/home/${{secrets.USERNAME}}/multi-branch-test
+                scp -o -o StrictHostKeyChecking=no -i ~/.ssh/mgr-ssh -r ./* ${{secrets.USERNAME}}@${{secrets.MGRIP}}:/home/${{secrets.USERNAME}}/multi-branch-test
                 echo did the thing
 
 
