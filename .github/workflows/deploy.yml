@@ -1,0 +1,20 @@
+name: Deployment on main
+on: 
+    push:
+        branches:
+            - main
+            - testmgr
+jobs:
+    deploy-main:
+        if: github.ref == 'refs/heads/main'
+        runs-on: 
+            self-hosted
+        steps:
+            - name: Checkout files
+              uses: actions/checkout@v4
+            - name: Send files to server
+              run: |
+                cp ./test.main /home 
+                echo did the thing
+                
+
